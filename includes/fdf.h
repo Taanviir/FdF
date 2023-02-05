@@ -6,7 +6,7 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 17:10:15 by tanas             #+#    #+#             */
-/*   Updated: 2023/02/04 22:37:02 by tanas            ###   ########.fr       */
+/*   Updated: 2023/02/05 23:26:58 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # include <stdio.h>
 # include <string.h>
 # include <unistd.h>
-#include <stdio.h>
 
 # if __APPLE__
 #  define KEYCODE_ESC 53
@@ -58,8 +57,8 @@ typedef struct s_pixel
 
 typedef struct s_data
 {
-	int dx;
-	int dy;
+	int	dx;
+	int	dy;
 	int	decision;
 	int	s1;
 	int	s2;
@@ -69,6 +68,7 @@ typedef struct s_map
 {
 	int	width;
 	int	height;
+	int	**z_values;
 }			t_map;
 
 int		check_file(char *file, int count);
@@ -78,10 +78,8 @@ void	draw_line(t_pixel p1, t_pixel p2, t_img image);
 t_img	make_image(int w, int h, t_win window);
 int		key_events(int key_input, t_win *fdf);
 int		close_window(t_win *fdf);
-void	draw(int w, int h, t_img image, t_pixel origin);
-int		**get_map(char *file);
-int		get_height(char *file);
-int		get_width(char *line);
-
+void	draw(t_map map, t_img image, t_pixel origin);
+t_map	get_map(char *file);
+t_map	get_values(char *line, int index, t_map);
 
 #endif
