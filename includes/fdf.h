@@ -6,7 +6,7 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 17:10:15 by tanas             #+#    #+#             */
-/*   Updated: 2023/02/05 23:26:58 by tanas            ###   ########.fr       */
+/*   Updated: 2023/02/06 18:14:41 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,5 @@ int		key_events(int key_input, t_win *fdf);
 int		close_window(t_win *fdf);
 void	draw(t_map map, t_img image, t_pixel origin);
 t_map	get_map(char *file);
-t_map	get_values(char *line, int index, t_map);
 
 #endif

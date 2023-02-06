@@ -6,7 +6,7 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 18:32:30 by tanas             #+#    #+#             */
-/*   Updated: 2023/02/05 23:38:12 by tanas            ###   ########.fr       */
+/*   Updated: 2023/02/06 18:50:08 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,29 +17,6 @@
 	if found then get colour
 	atoi and input the number value into values_int
 	get hexa color code */
-
-// get_values does two things; gets the z values for one line and gets the width
-t_map	get_values(char *line, int index, t_map map)
-{
-	char	**values_str;
-	int		i;
-
-	values_str = ft_split(line, ' ');
-	map.z_values = (int **) malloc(sizeof(int *) * map.height);
-	if (!map.z_values)
-		exit(2);
-	map.z_values[index] = malloc(sizeof(int) * map.width);
-	if (!map.z_values[index])
-		exit(3);
-	i = 0;
-	while (values_str[i])
-	{
-		map.z_values[index][i] = ft_atoi(values_str[i]);
-		i++;
-	}
-	free(values_str);
-	return (map);
-}
 
 t_map	get_height_width(char *file)
 {
@@ -66,24 +43,49 @@ t_map	get_height_width(char *file)
 	return (map);
 }
 
+// get_values does two things; gets the z values for one line and gets the width
+int	*get_values(char *line, t_map map)
+{
+	char	**values_str;
+	int		*z_values;
+	int		i;
+
+	values_str = ft_split(line, ' ');
+	z_values = malloc(sizeof(int) * map.width);
+	if (!z_values)
+		return (NULL);
+	i = 0;
+	while (values_str[i])
+	{
+		z_values[i] = ft_atoi(values_str[i]);
+		free(values_str[i]);
+		i++;
+	}
+	free(values_str);
+	return (z_values);
+}
+
 t_map	get_map(char *file)
 {
 	int		fd;
 	char	*line;
-	int		j;
+	int		i;
 	t_map	map;
 
 	map = get_height_width(file);
-	j = 0;
+	map.z_values = (int **) malloc(sizeof(int *) * (map.height + 1));
+	if (!map.z_values)
+		exit(2);
+	i = 0;
 	fd = open(file, O_RDONLY);
-	line = get_next_line(fd);
-	while (j < map.height)
+	while (i < map.height)
 	{
-		map = get_values(line, j, map);
-		free(line);
 		line = get_next_line(fd);
-		j++;
+		map.z_values[i] = get_values(line, map);
+		free(line);
+		i++;
 	}
-	close(fd);	
+	map.z_values[i] = NULL;
+	close(fd);
 	return (map);
 }
