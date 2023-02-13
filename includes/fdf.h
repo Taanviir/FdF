@@ -6,7 +6,7 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 17:10:15 by tanas             #+#    #+#             */
-/*   Updated: 2023/02/06 18:14:41 by tanas            ###   ########.fr       */
+/*   Updated: 2023/02/13 17:06:20 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_img
 	int		endian;
 	int		height;
 	int		width;
-}				t_img;
+}			t_img;
 
 typedef struct s_pixel
 {
@@ -74,7 +74,7 @@ typedef struct s_map
 int		check_file(char *file, int count);
 t_win	make_window(int w, int h, char *title);
 void	my_pixel_put(t_img data, int x, int y, int color);
-void	draw_line(t_pixel p1, t_pixel p2, t_img image);
+void	draw_line(t_pixel p1, int x, int y, t_img image);
 t_img	make_image(int w, int h, t_win window);
 int		key_events(int key_input, t_win *fdf);
 int		close_window(t_win *fdf);

@@ -6,7 +6,7 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 17:10:12 by tanas             #+#    #+#             */
-/*   Updated: 2023/02/06 18:57:25 by tanas            ###   ########.fr       */
+/*   Updated: 2023/02/13 18:16:27 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int	main(int argc, char **argv)
 		if (!fdf.mlx || !fdf.window)
 			return (1);
 		image = make_image(1000, 1000, fdf);
-		origin.x = 20;
-		origin.y = 20;
+		origin.x = 0;
+		origin.y = 0;
 		map = get_map(argv[1]);
 		draw(map, image, origin);
 		mlx_put_image_to_window(fdf.mlx, fdf.window, image.img, 0, 0);

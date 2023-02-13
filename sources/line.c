@@ -6,7 +6,7 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 15:02:57 by tanas             #+#    #+#             */
-/*   Updated: 2023/01/28 16:22:45 by tanas            ###   ########.fr       */
+/*   Updated: 2023/02/13 21:34:24 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,23 @@ static int	ft_abs(int n)
 	return (n);
 }
 
-void	draw_line(t_pixel p1, t_pixel p2, t_img image)
+void	draw_line(t_pixel p1, int x2, int y2, t_img image)
 {
 	int		i;
 	int		swap;
 	t_data	data;
 
-	data.dx = ft_abs(p2.x - p1.x);
-	data.dy = ft_abs(p2.y - p1.y);
-	data.s1 = get_sign(p2.x - p1.x);
-	data.s2 = get_sign(p2.y - p1.y);
+	// zoom : 
+	p1.x *= 50;
+	p1.y *= 50;
+	x2 *= 50;
+	y2 *= 50;
+	/////////////
+
+	data.dx = ft_abs(x2 - p1.x);
+	data.dy = ft_abs(y2 - p1.y);
+	data.s1 = get_sign(x2 - p1.x);
+	data.s2 = get_sign(y2 - p1.y);
 	swap = ft_swap(&data);
 	data.decision = 2 * data.dy - data.dx;
 	i = 0;
