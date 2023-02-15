@@ -6,7 +6,7 @@
 #    By: tanas <tanas@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/07 22:21:39 by tanas             #+#    #+#              #
-#    Updated: 2023/02/04 21:55:09 by tanas            ###   ########.fr        #
+#    Updated: 2023/02/15 22:13:59 by tanas            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,8 @@ SRCS_LIST 		= main.c \
 					image.c \
 					map.c \
 					draw.c \
-					error.c
+					error.c \
+					colors.c
 SRCS 			= $(addprefix $(SRCS_DIR), $(SRCS_LIST))
 
 OBJS_DIR 		= objects/

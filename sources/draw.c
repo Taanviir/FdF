@@ -6,33 +6,41 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 19:07:35 by tanas             #+#    #+#             */
-/*   Updated: 2023/02/13 21:29:54 by tanas            ###   ########.fr       */
+/*   Updated: 2023/02/15 22:29:01 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	draw(t_map map, t_img image, t_pixel origin)
+t_point	new_point(int x, int y, t_map map)
 {
-	t_pixel	pixel;
+	t_point	new_point;
 
-	pixel.y = 0;
-	pixel.x = 0;
-	while (pixel.y < map.height)
+	new_point.x = x;
+	new_point.y = y;
+	new_point.z = map.z_values[y][x];
+	return (new_point);
+}
+
+void	draw(t_map map, t_img image)
+{
+	t_point	point;
+
+	point.y = 0;
+	point.x = 0;
+	while (point.y < map.height)
 	{
-		pixel.x = 0;
-		origin = pixel;
-		while (pixel.x < map.width)
+		point.x = 0;
+		while (point.x < map.width)
 		{
-			if (pixel.x < (map.width - 1))
-				draw_line(origin, pixel.x + 1, pixel.y, image);
-			if (pixel.y < (map.height - 1))
-				draw_line(origin, pixel.x, pixel.y + 1, image);
-			pixel.x++;
-			origin = pixel;
+			if (point.x < (map.width - 1))
+				draw_line(new_point(point.x, point.y, map), new_point(point.x + 1, point.y, map), image);
+			if (point.y < (map.height - 1))
+				draw_line(new_point(point.x, point.y, map), new_point(point.x, point.y + 1, map), image);
+			point.x++;
 		}
-		pixel.y++;
+		point.y++;
 	}
-	if ((pixel.y == map.height) && (pixel.x == map.width))
-		my_pixel_put(image, (pixel.x - 1) * 50, (pixel.y - 1) * 50, 0x00FF0000); // 50 is zoom value
+	if ((point.y == map.height) && (point.x == map.width))
+		my_pixel_put(image, (point.x - 1) * 50, (point.y - 1) * 50, 0x00FF0000); // 50 is zoom value
 }
