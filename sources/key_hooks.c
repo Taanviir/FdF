@@ -6,11 +6,12 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 20:18:57 by tanas             #+#    #+#             */
-/*   Updated: 2023/01/25 17:54:52 by tanas            ###   ########.fr       */
+/*   Updated: 2023/02/22 14:33:59 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include "keycodes.h"
 
 int	close_window(t_win *fdf)
 {
@@ -19,9 +20,82 @@ int	close_window(t_win *fdf)
 	exit(0);
 }
 
-int	key_events(int key_input, t_win *fdf)
+void	move(int key_input, t_img image)
 {
-	if (key_input == KEYCODE_ESC)
-		close_window(fdf);
+	ft_memset(image.addr, 0, (HEIGHT * WIDTH * 4));
+	if (key_input == ARROW_UP)
+		image.camera->y_offset -= 10;
+	else if (key_input == ARROW_DOWN)
+		image.camera->y_offset += 10;
+	else if (key_input == ARROW_LEFT)
+		image.camera->x_offset -= 10;
+	else if (key_input == ARROW_RIGHT)
+		image.camera->x_offset += 10;
+	draw(image);
+}
+
+void	rotate(int key_input, t_img image)
+{
+	ft_memset(image.addr, 0, (HEIGHT * WIDTH * 4));
+	if (key_input == KEY_A)
+		image.camera->alpha += (1 * (M_PI / 180));
+	else if (key_input == KEY_D)
+		image.camera->alpha -= (1 * (M_PI / 180));
+	else if (key_input == KEY_Q)
+		image.camera->beta += (1 * (M_PI / 180));
+	else if (key_input == KEY_E)
+		image.camera->beta -= (1 * (M_PI / 180));
+	else if (key_input == KEY_W)
+		image.camera->gamma += (1 * (M_PI / 180));
+	else if (key_input == KEY_S)
+		image.camera->gamma -= (1 * (M_PI / 180));
+	else if (key_input == KEY_T)
+	{
+		image.camera->alpha = 0;
+		image.camera->beta = 0;
+		image.camera->gamma = 0;
+	}
+	else if (key_input == KEY_I)
+	{
+		image.camera->alpha = (30 * (M_PI / 180));
+		image.camera->beta = (45 * (M_PI / 180));
+		image.camera->gamma = (25 * (M_PI / 180));
+	}
+	printf("alpha: %f\nbeta: %f\ngamma: %f\n\n", image.camera->alpha, image.camera->beta, image.camera->gamma);
+	draw(image);
+}
+
+void	zoom(int key_input, t_img image)
+{
+	ft_memset(image.addr, 0, (HEIGHT * WIDTH * 4));
+	if (key_input == NUMPAD_PLUS)
+		image.camera->zoom += 1;
+	else if (key_input == NUMPAD_MINUS)
+		image.camera->zoom -= 1;
+	else if (key_input == UP)
+		image.camera->z_value += 1;
+	else if (key_input == DOWN)
+		image.camera->z_value -= 1;
+	draw(image);
+}
+
+int	key_events(int key_input, t_img *image)
+{
+	if (key_input == ESCAPE)
+		close_window(&image->win);
+	else if (key_input == KEY_A || \
+		key_input == KEY_W || \
+		key_input == KEY_S || \
+		key_input == KEY_Q || \
+		key_input == KEY_E || \
+		key_input == KEY_D || \
+		key_input == KEY_T || \
+		key_input == KEY_I)
+		rotate(key_input, *image);
+	else if (key_input == NUMPAD_MINUS || key_input == NUMPAD_PLUS || key_input == UP || key_input == DOWN)
+		zoom(key_input, *image);
+	else if (key_input == ARROW_DOWN || key_input == ARROW_LEFT || key_input == ARROW_UP || key_input == ARROW_RIGHT)
+		move(key_input, *image);
+	
 	return (0);
 }

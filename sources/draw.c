@@ -6,41 +6,41 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 19:07:35 by tanas             #+#    #+#             */
-/*   Updated: 2023/02/15 22:29:01 by tanas            ###   ########.fr       */
+/*   Updated: 2023/02/21 21:39:17 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_point	new_point(int x, int y, t_map map)
+t_coord	new_coord(int x, int y, t_map map)
 {
-	t_point	new_point;
+	t_coord	new_coord;
 
-	new_point.x = x;
-	new_point.y = y;
-	new_point.z = map.z_values[y][x];
-	return (new_point);
+	new_coord.x = x;
+	new_coord.y = y;
+	new_coord.z = map.z_values[y][x];
+	return (new_coord);
 }
 
-void	draw(t_map map, t_img image)
+void	draw(t_img image)
 {
-	t_point	point;
+	t_coord	coord;
 
-	point.y = 0;
-	point.x = 0;
-	while (point.y < map.height)
+	coord.y = 0;
+	while (coord.y < image.map.height)
 	{
-		point.x = 0;
-		while (point.x < map.width)
+		coord.x = 0;
+		while (coord.x < image.map.width)
 		{
-			if (point.x < (map.width - 1))
-				draw_line(new_point(point.x, point.y, map), new_point(point.x + 1, point.y, map), image);
-			if (point.y < (map.height - 1))
-				draw_line(new_point(point.x, point.y, map), new_point(point.x, point.y + 1, map), image);
-			point.x++;
+			if (coord.x < (image.map.width - 1))
+				draw_line(new_coord(coord.x, coord.y, image.map), \
+					new_coord(coord.x + 1, coord.y, image.map), image);
+			if (coord.y < (image.map.height - 1))
+				draw_line(new_coord(coord.x, coord.y, image.map), \
+					new_coord(coord.x, coord.y + 1, image.map), image);
+			coord.x++;
 		}
-		point.y++;
+		coord.y++;
 	}
-	if ((point.y == map.height) && (point.x == map.width))
-		my_pixel_put(image, (point.x - 1) * 50, (point.y - 1) * 50, 0x00FF0000); // 50 is zoom value
+	mlx_put_image_to_window(image.win.mlx, image.win.window, image.img, 0, 0);
 }

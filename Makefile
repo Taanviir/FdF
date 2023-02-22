@@ -6,13 +6,13 @@
 #    By: tanas <tanas@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/07 22:21:39 by tanas             #+#    #+#              #
-#    Updated: 2023/02/15 22:13:59 by tanas            ###   ########.fr        #
+#    Updated: 2023/02/21 21:18:08 by tanas            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 			= fdf
 
-C_FLAGS 		= -Wall -Wextra -Werror -O3 -g
+C_FLAGS 		= -Wall -Wextra -Werror -O3 -g -fsanitize=address
 LIBRARY_FLAGS 	= -lmlx -lm -lft -Llibft/ -Lmlx/ -framework OpenGL -framework AppKit
 INCLUDES 		= -Iincludes/ -Ilibft/includes -Imlx/
 
@@ -25,14 +25,14 @@ SRCS_LIST 		= main.c \
 					map.c \
 					draw.c \
 					error.c \
-					colors.c
+					colors.c 
 SRCS 			= $(addprefix $(SRCS_DIR), $(SRCS_LIST))
 
 OBJS_DIR 		= objects/
 OBJS_LIST 		= $(SRCS_LIST:.c=.o)
 OBJS 			= $(addprefix $(OBJS_DIR), $(OBJS_LIST))
 
-HEADERS 		= includes/fdf.h
+HEADERS 		= includes/fdf.h includes/keycodes.h
 
 LIBFT 			= libft/libft.a
 

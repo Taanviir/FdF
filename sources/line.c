@@ -6,7 +6,7 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 15:02:57 by tanas             #+#    #+#             */
-/*   Updated: 2023/02/15 22:25:30 by tanas            ###   ########.fr       */
+/*   Updated: 2023/02/22 14:30:36 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,38 +40,62 @@ static int	ft_abs(int n)
 	return (n);
 }
 
-void	draw_line(t_point p1, t_point p2, t_img image)
+void	draw_line(t_coord c1, t_coord c2, t_img image)
 {
 	int		i;
 	int		swap;
 	t_data	data;
 
-	// zoom : 
-	p1.x *= 50;
-	p1.y *= 50;
-	p2.x *= 50;
-	p2.y *= 50;
-	/////////////
+	// ZOOM //
+	c1.x *= image.camera->zoom;
+	c1.y *= image.camera->zoom;
+	c2.x *= image.camera->zoom;
+	c2.y *= image.camera->zoom;
+	
+	// CENTERING THE ROTATION
+	c1.x -= (image.map.width * image.camera->zoom / 2);
+	c1.y -= (image.map.height * image.camera->zoom / 2);
+	c2.x -= (image.map.width * image.camera->zoom / 2);
+	c2.y -= (image.map.height * image.camera->zoom / 2);
 
-	data.dx = ft_abs(p2.x - p1.x);
-	data.dy = ft_abs(p2.y - p1.y);
-	data.s1 = get_sign(p2.x - p1.x);
-	data.s2 = get_sign(p2.y - p1.y);
+	/////////////ROTATION/////////////
+	c1.x = (c1.x * cos(image.camera->beta) * cos(image.camera->gamma)) + \
+		((c1.y * sin(image.camera->alpha) * sin(image.camera->beta) * cos(image.camera->gamma)) - (c1.y * cos(image.camera->alpha) * sin(image.camera->gamma))) \
+			+ ((c1.z * image.camera->z_value * cos(image.camera->alpha) * sin(image.camera->beta) * cos(image.camera->gamma)) + (c1.z * image.camera->z_value * sin(image.camera->alpha) * sin(image.camera->gamma)));
+	c1.y = (c1.x * cos(image.camera->beta) * sin(image.camera->gamma)) + ((c1.y * sin(image.camera->alpha) * sin(image.camera->beta) * sin(image.camera->gamma)) + (c1.y * cos(image.camera->alpha) * cos(image.camera->gamma))) \
+		+ ((c1.z * image.camera->z_value * cos(image.camera->alpha) * sin(image.camera->beta) * sin(image.camera->gamma)) - (c1.z * image.camera->z_value * sin(image.camera->alpha) * cos(image.camera->gamma)));
+
+	c2.x = (c2.x * cos(image.camera->beta) * cos(image.camera->gamma)) + \
+		((c2.y * sin(image.camera->alpha) * sin(image.camera->beta) * cos(image.camera->gamma)) - (c2.y * cos(image.camera->alpha) * sin(image.camera->gamma))) \
+			+ ((c2.z * image.camera->z_value * cos(image.camera->alpha) * sin(image.camera->beta) * cos(image.camera->gamma)) + (c2.z * image.camera->z_value * sin(image.camera->alpha) *sin(image.camera->gamma)));
+	c2.y = (c2.x * cos(image.camera->beta) * sin(image.camera->gamma)) + ((c2.y * sin(image.camera->alpha) * sin(image.camera->beta) * sin(image.camera->gamma)) + (c2.y * cos(image.camera->alpha) * cos(image.camera->gamma))) \
+		+ ((c2.z * image.camera->z_value * cos(image.camera->alpha) * sin(image.camera->beta) * sin(image.camera->gamma)) - (c2.z * image.camera->z_value * sin(image.camera->alpha) * cos(image.camera->gamma)));
+	/////////////ROTATION////////////
+
+	c1.x += ((WIDTH + image.camera->x_offset) / 2);
+	c1.y += ((HEIGHT + image.camera->y_offset) / 2);
+	c2.x += ((WIDTH + image.camera->x_offset) / 2);
+	c2.y += ((HEIGHT + image.camera->y_offset) / 2);
+
+	data.dx = ft_abs(c2.x - c1.x);
+	data.dy = ft_abs(c2.y - c1.y);
+	data.s1 = get_sign(c2.x - c1.x);
+	data.s2 = get_sign(c2.y - c1.y);
 	swap = ft_swap(&data);
 	data.decision = 2 * data.dy - data.dx;
 	i = 0;
-	while (i < data.dx)
+	while (i <= data.dx)
 	{
-		my_pixel_put(image, p1.x, p1.y, 0x00FF0000);
-		while (data.decision >= 0)
+		my_pixel_put(image, c1.x, c1.y, 0xFFFFFF);
+		while (data.decision > 0)
 		{
 			data.decision -= (2 * data.dx);
-			p1.x += (data.s1 * swap);
-			p1.y += (data.s2 * !swap);
+			c1.x += (data.s1 * swap);
+			c1.y += (data.s2 * !swap);
 		}
 		data.decision += (2 * data.dy);
-		p1.y += (data.s2 * swap);
-		p1.x += (data.s1 * !swap);
+		c1.y += (data.s2 * swap);
+		c1.x += (data.s1 * !swap);
 		i++;
 	}
 }

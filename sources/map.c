@@ -6,18 +6,13 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 18:32:30 by tanas             #+#    #+#             */
-/*   Updated: 2023/02/15 22:20:45 by tanas            ###   ########.fr       */
+/*   Updated: 2023/02/22 15:16:08 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-/* 
-	make function that checks values_str for hexa code
-	if found then get colour
-	atoi and input the number value into values_int
-	get hexa color code */
-
+// function name is self-explanatory
 t_map	get_height_width(char *file)
 {
 	int		fd;
@@ -43,7 +38,7 @@ t_map	get_height_width(char *file)
 	return (map);
 }
 
-// get_values does two things; gets the z values for one line and gets the width
+// get_values gets the z values for one line
 int	*get_values(char *line, t_map map)
 {
 	char	**values_str;
@@ -51,7 +46,8 @@ int	*get_values(char *line, t_map map)
 	int		i;
 
 	values_str = ft_split(line, ' ');
-	z_values = malloc(sizeof(int) * map.width);
+	map.colours = extract_colours(values_str, map);
+	z_values = (int *) malloc(sizeof(int) * map.width);
 	if (!z_values)
 		return (NULL);
 	i = 0;
@@ -65,6 +61,8 @@ int	*get_values(char *line, t_map map)
 	return (z_values);
 }
 
+// fills up the map with the required z values which can be then
+// accessed using the corresponding x, y values
 t_map	get_map(char *file)
 {
 	int		fd;
