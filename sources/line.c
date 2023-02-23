@@ -6,7 +6,7 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 15:02:57 by tanas             #+#    #+#             */
-/*   Updated: 2023/02/22 14:30:36 by tanas            ###   ########.fr       */
+/*   Updated: 2023/02/23 23:04:50 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,10 @@ void	draw_line(t_coord c1, t_coord c2, t_img image)
 	// ZOOM //
 	c1.x *= image.camera->zoom;
 	c1.y *= image.camera->zoom;
+	c1.z *= image.camera->zoom / image.camera->z_value;
 	c2.x *= image.camera->zoom;
 	c2.y *= image.camera->zoom;
+	c2.z *= image.camera->zoom / image.camera->z_value;
 	
 	// CENTERING THE ROTATION
 	c1.x -= (image.map.width * image.camera->zoom / 2);
@@ -58,20 +60,20 @@ void	draw_line(t_coord c1, t_coord c2, t_img image)
 	c2.x -= (image.map.width * image.camera->zoom / 2);
 	c2.y -= (image.map.height * image.camera->zoom / 2);
 
-	/////////////ROTATION/////////////
+	// ROTATION
 	c1.x = (c1.x * cos(image.camera->beta) * cos(image.camera->gamma)) + \
 		((c1.y * sin(image.camera->alpha) * sin(image.camera->beta) * cos(image.camera->gamma)) - (c1.y * cos(image.camera->alpha) * sin(image.camera->gamma))) \
-			+ ((c1.z * image.camera->z_value * cos(image.camera->alpha) * sin(image.camera->beta) * cos(image.camera->gamma)) + (c1.z * image.camera->z_value * sin(image.camera->alpha) * sin(image.camera->gamma)));
+			+ ((c1.z * cos(image.camera->alpha) * sin(image.camera->beta) * cos(image.camera->gamma)) + (c1.z * sin(image.camera->alpha) * sin(image.camera->gamma)));
 	c1.y = (c1.x * cos(image.camera->beta) * sin(image.camera->gamma)) + ((c1.y * sin(image.camera->alpha) * sin(image.camera->beta) * sin(image.camera->gamma)) + (c1.y * cos(image.camera->alpha) * cos(image.camera->gamma))) \
-		+ ((c1.z * image.camera->z_value * cos(image.camera->alpha) * sin(image.camera->beta) * sin(image.camera->gamma)) - (c1.z * image.camera->z_value * sin(image.camera->alpha) * cos(image.camera->gamma)));
+		+ ((c1.z * cos(image.camera->alpha) * sin(image.camera->beta) * sin(image.camera->gamma)) - (c1.z * sin(image.camera->alpha) * cos(image.camera->gamma)));
 
 	c2.x = (c2.x * cos(image.camera->beta) * cos(image.camera->gamma)) + \
 		((c2.y * sin(image.camera->alpha) * sin(image.camera->beta) * cos(image.camera->gamma)) - (c2.y * cos(image.camera->alpha) * sin(image.camera->gamma))) \
-			+ ((c2.z * image.camera->z_value * cos(image.camera->alpha) * sin(image.camera->beta) * cos(image.camera->gamma)) + (c2.z * image.camera->z_value * sin(image.camera->alpha) *sin(image.camera->gamma)));
+			+ ((c2.z * cos(image.camera->alpha) * sin(image.camera->beta) * cos(image.camera->gamma)) + (c2.z * sin(image.camera->alpha) *sin(image.camera->gamma)));
 	c2.y = (c2.x * cos(image.camera->beta) * sin(image.camera->gamma)) + ((c2.y * sin(image.camera->alpha) * sin(image.camera->beta) * sin(image.camera->gamma)) + (c2.y * cos(image.camera->alpha) * cos(image.camera->gamma))) \
-		+ ((c2.z * image.camera->z_value * cos(image.camera->alpha) * sin(image.camera->beta) * sin(image.camera->gamma)) - (c2.z * image.camera->z_value * sin(image.camera->alpha) * cos(image.camera->gamma)));
-	/////////////ROTATION////////////
+		+ ((c2.z * cos(image.camera->alpha) * sin(image.camera->beta) * sin(image.camera->gamma)) - (c2.z * sin(image.camera->alpha) * cos(image.camera->gamma)));
 
+	// OFFSET
 	c1.x += ((WIDTH + image.camera->x_offset) / 2);
 	c1.y += ((HEIGHT + image.camera->y_offset) / 2);
 	c2.x += ((WIDTH + image.camera->x_offset) / 2);

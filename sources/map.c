@@ -6,7 +6,7 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 18:32:30 by tanas             #+#    #+#             */
-/*   Updated: 2023/02/22 15:16:08 by tanas            ###   ########.fr       */
+/*   Updated: 2023/02/23 21:40:04 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,15 @@ t_map	get_height_width(char *file)
 }
 
 // get_values gets the z values for one line
-int	*get_values(char *line, t_map map)
+int	*get_values(char *line, t_map map, int index)
 {
 	char	**values_str;
 	int		*z_values;
 	int		i;
 
 	values_str = ft_split(line, ' ');
-	map.colours = extract_colours(values_str, map);
+	index = 0;
+	// map.colours[index] = extract_colours(values_str, map);
 	z_values = (int *) malloc(sizeof(int) * map.width);
 	if (!z_values)
 		return (NULL);
@@ -71,19 +72,21 @@ t_map	get_map(char *file)
 	t_map	map;
 
 	map = get_height_width(file);
-	map.z_values = (int **) malloc(sizeof(int *) * (map.height + 1));
+	map.z_values = (int **) malloc(sizeof(int *) * map.height);
 	if (!map.z_values)
 		exit(2);
+	// map.colours = (int **) malloc(sizeof(int *) * map.height);
+	// if (!map.z_values)
+	// 	exit(3);
 	i = 0;
 	fd = open(file, O_RDONLY);
 	while (i < map.height)
 	{
 		line = get_next_line(fd);
-		map.z_values[i] = get_values(line, map);
+		map.z_values[i] = get_values(line, map, i);
 		free(line);
 		i++;
 	}
-	map.z_values[i] = NULL;
 	close(fd);
 	return (map);
 }

@@ -6,7 +6,7 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 17:10:12 by tanas             #+#    #+#             */
-/*   Updated: 2023/02/22 14:31:06 by tanas            ###   ########.fr       */
+/*   Updated: 2023/02/23 21:11:38 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(int argc, char **argv)
 		image = make_image(WIDTH, HEIGHT, fdf);
 		image.map = get_map(argv[1]);
 		camera.zoom = 1;
-		camera.z_value = 5;
+		camera.z_value = 1;
 		camera.x_offset = 0;
 		camera.y_offset = 0;
 		image.camera = &camera;

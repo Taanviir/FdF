@@ -6,7 +6,7 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 17:10:15 by tanas             #+#    #+#             */
-/*   Updated: 2023/02/22 15:20:51 by tanas            ###   ########.fr       */
+/*   Updated: 2023/02/23 23:02:20 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct s_camera
 	int		x_offset;
 	int		y_offset;
 	double	zoom;
-	int		z_value;
+	double	z_value;
 }			t_camera;
 
 typedef struct s_img
@@ -71,6 +71,7 @@ typedef struct s_coord
 	int	x;
 	int	y;
 	int	z;
+	int	colour;
 }			t_coord;
 
 typedef struct s_data
@@ -93,6 +94,7 @@ void	draw(t_img image);
 t_map	get_map(char *file);
 t_coord	new_point(int x, int y, t_map map);
 void	controls(t_win fdf);
-int		**extract_colours(char **values_in_line, t_map map);
+int		*extract_colours(char **values_in_line, t_map map);
+void	project(t_coord *c, t_img image);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 20:18:57 by tanas             #+#    #+#             */
-/*   Updated: 2023/02/22 14:33:59 by tanas            ###   ########.fr       */
+/*   Updated: 2023/02/23 22:35:59 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ void	rotate(int key_input, t_img image)
 	}
 	else if (key_input == KEY_I)
 	{
-		image.camera->alpha = (30 * (M_PI / 180));
-		image.camera->beta = (45 * (M_PI / 180));
-		image.camera->gamma = (25 * (M_PI / 180));
+		image.camera->alpha = (0 * (M_PI / 180));
+		image.camera->beta = (0 * (M_PI / 180));
+		image.camera->gamma = (0 * (M_PI / 180));
 	}
 	printf("alpha: %f\nbeta: %f\ngamma: %f\n\n", image.camera->alpha, image.camera->beta, image.camera->gamma);
 	draw(image);
@@ -72,10 +72,15 @@ void	zoom(int key_input, t_img image)
 		image.camera->zoom += 1;
 	else if (key_input == NUMPAD_MINUS)
 		image.camera->zoom -= 1;
-	else if (key_input == UP)
-		image.camera->z_value += 1;
-	else if (key_input == DOWN)
-		image.camera->z_value -= 1;
+	else if (key_input == MORE)
+		image.camera->z_value += 0.1;
+	else if (key_input == LESS)
+		image.camera->z_value -= 0.1;
+	if (image.camera->z_value < 0.1)
+		image.camera->z_value = 0.1;
+	if (image.camera->z_value > 10)
+		image.camera->z_value = 10;
+	printf("z_value: %f\n", image.camera->z_value);
 	draw(image);
 }
 
@@ -92,7 +97,7 @@ int	key_events(int key_input, t_img *image)
 		key_input == KEY_T || \
 		key_input == KEY_I)
 		rotate(key_input, *image);
-	else if (key_input == NUMPAD_MINUS || key_input == NUMPAD_PLUS || key_input == UP || key_input == DOWN)
+	else if (key_input == NUMPAD_MINUS || key_input == NUMPAD_PLUS || key_input == MORE || key_input == LESS)
 		zoom(key_input, *image);
 	else if (key_input == ARROW_DOWN || key_input == ARROW_LEFT || key_input == ARROW_UP || key_input == ARROW_RIGHT)
 		move(key_input, *image);
