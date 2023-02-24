@@ -6,21 +6,21 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 20:18:57 by tanas             #+#    #+#             */
-/*   Updated: 2023/02/23 22:35:59 by tanas            ###   ########.fr       */
+/*   Updated: 2023/02/24 20:47:06 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "keycodes.h"
 
-int	close_window(t_win *fdf)
+static int	close_window(t_win *fdf)
 {
 	mlx_clear_window(fdf->mlx, fdf->window);
 	mlx_destroy_window(fdf->mlx, fdf->window);
 	exit(0);
 }
 
-void	move(int key_input, t_img image)
+static void	move_hook(int key_input, t_img image)
 {
 	ft_memset(image.addr, 0, (HEIGHT * WIDTH * 4));
 	if (key_input == ARROW_UP)
@@ -34,7 +34,7 @@ void	move(int key_input, t_img image)
 	draw(image);
 }
 
-void	rotate(int key_input, t_img image)
+static void	rotate_hook(int key_input, t_img image)
 {
 	ft_memset(image.addr, 0, (HEIGHT * WIDTH * 4));
 	if (key_input == KEY_A)
@@ -51,21 +51,17 @@ void	rotate(int key_input, t_img image)
 		image.camera->gamma -= (1 * (M_PI / 180));
 	else if (key_input == KEY_T)
 	{
+		image.camera->view = TOP;
 		image.camera->alpha = 0;
 		image.camera->beta = 0;
 		image.camera->gamma = 0;
 	}
 	else if (key_input == KEY_I)
-	{
-		image.camera->alpha = (0 * (M_PI / 180));
-		image.camera->beta = (0 * (M_PI / 180));
-		image.camera->gamma = (0 * (M_PI / 180));
-	}
-	printf("alpha: %f\nbeta: %f\ngamma: %f\n\n", image.camera->alpha, image.camera->beta, image.camera->gamma);
+		image.camera->view = ISOMETRIC;
 	draw(image);
 }
 
-void	zoom(int key_input, t_img image)
+static void	zoom_hook(int key_input, t_img image)
 {
 	ft_memset(image.addr, 0, (HEIGHT * WIDTH * 4));
 	if (key_input == NUMPAD_PLUS)
@@ -80,7 +76,6 @@ void	zoom(int key_input, t_img image)
 		image.camera->z_value = 0.1;
 	if (image.camera->z_value > 10)
 		image.camera->z_value = 10;
-	printf("z_value: %f\n", image.camera->z_value);
 	draw(image);
 }
 
@@ -96,11 +91,10 @@ int	key_events(int key_input, t_img *image)
 		key_input == KEY_D || \
 		key_input == KEY_T || \
 		key_input == KEY_I)
-		rotate(key_input, *image);
+		rotate_hook(key_input, *image);
 	else if (key_input == NUMPAD_MINUS || key_input == NUMPAD_PLUS || key_input == MORE || key_input == LESS)
-		zoom(key_input, *image);
+		zoom_hook(key_input, *image);
 	else if (key_input == ARROW_DOWN || key_input == ARROW_LEFT || key_input == ARROW_UP || key_input == ARROW_RIGHT)
-		move(key_input, *image);
-	
+		move_hook(key_input, *image);
 	return (0);
 }

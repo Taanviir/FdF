@@ -6,7 +6,7 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 17:10:15 by tanas             #+#    #+#             */
-/*   Updated: 2023/02/23 23:02:20 by tanas            ###   ########.fr       */
+/*   Updated: 2023/02/24 17:39:23 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,15 @@
 # include <string.h>
 # include <unistd.h>
 
-# define WIDTH 1000
-# define HEIGHT 1000
+# define WIDTH 1920
+# define HEIGHT 1080
+
+typedef enum s_view
+{
+	ISOMETRIC,
+	TOP
+	// PARALLEL, CONIC
+}		t_view;
 
 typedef struct s_win
 {
@@ -50,6 +57,7 @@ typedef struct s_camera
 	int		y_offset;
 	double	zoom;
 	double	z_value;
+	t_view	view;
 }			t_camera;
 
 typedef struct s_img
@@ -95,6 +103,6 @@ t_map	get_map(char *file);
 t_coord	new_point(int x, int y, t_map map);
 void	controls(t_win fdf);
 int		*extract_colours(char **values_in_line, t_map map);
-void	project(t_coord *c, t_img image);
+t_coord	project(t_coord *c, t_img image);
 
 #endif

@@ -6,11 +6,19 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 22:10:17 by tanas             #+#    #+#             */
-/*   Updated: 2023/02/23 20:47:44 by tanas            ###   ########.fr       */
+/*   Updated: 2023/02/24 20:48:32 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+t_win	make_window(int w, int h, char *title)
+{
+	void	*mlx_ptr;
+
+	mlx_ptr = mlx_init();
+	return ((t_win){mlx_ptr, mlx_new_window(mlx_ptr, w, h, title), w, h});
+}
 
 void	my_pixel_put(t_img image, int x, int y, int color)
 {

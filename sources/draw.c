@@ -6,13 +6,13 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 19:07:35 by tanas             #+#    #+#             */
-/*   Updated: 2023/02/23 23:01:24 by tanas            ###   ########.fr       */
+/*   Updated: 2023/02/24 20:48:42 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_coord	new_coord(int x, int y, t_map map)
+static t_coord	new_coord(int x, int y, t_map map)
 {
 	t_coord	new_coord;
 
@@ -24,23 +24,24 @@ t_coord	new_coord(int x, int y, t_map map)
 
 void	draw(t_img image)
 {
-	t_coord	coord;
+	int	y;
+	int	x;
 
-	coord.y = 0;
-	while (coord.y < image.map.height)
+	y = 0;
+	while (y < image.map.height)
 	{
-		coord.x = 0;
-		while (coord.x < image.map.width)
+		x = 0;
+		while (x < image.map.width)
 		{
-			if (coord.x < (image.map.width - 1))
-				draw_line(new_coord(coord.x, coord.y, image.map), \
-					new_coord(coord.x + 1, coord.y, image.map), image);
-			if (coord.y < (image.map.height - 1))
-				draw_line(new_coord(coord.x, coord.y, image.map), \
-					new_coord(coord.x, coord.y + 1, image.map), image);
-			coord.x++;
+			if (x < (image.map.width - 1))
+				draw_line(new_coord(x, y, image.map), \
+					new_coord(x + 1, y, image.map), image);
+			if (y < (image.map.height - 1))
+				draw_line(new_coord(x, y, image.map), \
+					new_coord(x, y + 1, image.map), image);
+			x++;
 		}
-		coord.y++;
+		y++;
 	}
 	mlx_put_image_to_window(image.win.mlx, image.win.window, image.img, 0, 0);
 }
