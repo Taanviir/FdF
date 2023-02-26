@@ -7,4 +7,4 @@ At the moment the code is made specifically for MacOS however I will implement l
 
 To use and see the models, firstly clone the directory and run `make`. Then do `./fdf maps/[map].fdf` using the test maps available in the maps directory.
 
-![Wireframe model](images/42Wireframe.png)
+![Wireframe model](images/42-wireframe.png)
