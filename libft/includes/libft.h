@@ -6,7 +6,7 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 12:35:15 by tanas             #+#    #+#             */
-/*   Updated: 2023/01/08 15:25:53 by tanas            ###   ########.fr       */
+/*   Updated: 2023/02/26 15:50:14 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 
 // ---------------------- TO-UTILS ---------------------------------------
+int		ft_atoi_base(const char *str, char *base);
 int		ft_atoi(const char *str);
 char	*ft_itoa(int n);
 int		ft_tolower(int c);

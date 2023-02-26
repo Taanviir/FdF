@@ -6,7 +6,7 @@
 #    By: tanas <tanas@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/07 22:21:39 by tanas             #+#    #+#              #
-#    Updated: 2023/02/24 17:41:22 by tanas            ###   ########.fr        #
+#    Updated: 2023/02/26 21:15:39 by tanas            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,15 +24,17 @@ SRCS_LIST 		= main.c \
 					map.c \
 					draw.c \
 					error.c \
-					colors.c \
-					projection.c
+					colours.c \
+					projection.c \
+					menu.c
 SRCS 			= $(addprefix $(SRCS_DIR), $(SRCS_LIST))
 
 OBJS_DIR 		= objects/
 OBJS_LIST 		= $(SRCS_LIST:.c=.o)
 OBJS 			= $(addprefix $(OBJS_DIR), $(OBJS_LIST))
 
-HEADERS 		= includes/fdf.h includes/keycodes.h
+HEADERS 		= includes/fdf.h \
+					includes/keycodes.h \
 
 LIBFT 			= libft/libft.a
 

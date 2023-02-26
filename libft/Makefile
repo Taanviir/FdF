@@ -18,7 +18,7 @@ SRCS 		= $(SRC_PATH)/ft_printf/ft_print_char.c $(SRC_PATH)/ft_printf/ft_print_he
 			$(SRC_PATH)/string-utils/ft_split.c $(SRC_PATH)/string-utils/ft_strchr.c $(SRC_PATH)/string-utils/ft_strdup.c $(SRC_PATH)/string-utils/ft_striteri.c $(SRC_PATH)/string-utils/ft_strjoin.c \
 			$(SRC_PATH)/string-utils/ft_strlcat.c $(SRC_PATH)/string-utils/ft_strlcpy.c $(SRC_PATH)/string-utils/ft_strlen.c $(SRC_PATH)/string-utils/ft_strmapi.c $(SRC_PATH)/string-utils/ft_strncmp.c \
 			$(SRC_PATH)/string-utils/ft_strnstr.c $(SRC_PATH)/string-utils/ft_strrchr.c $(SRC_PATH)/string-utils/ft_strtrim.c $(SRC_PATH)/string-utils/ft_substr.c \
-			$(SRC_PATH)/to-utils/ft_atoi.c $(SRC_PATH)/to-utils/ft_itoa.c $(SRC_PATH)/to-utils/ft_tolower.c $(SRC_PATH)/to-utils/ft_toupper.c
+			$(SRC_PATH)/to-utils/ft_atoi_base.c $(SRC_PATH)/to-utils/ft_atoi.c $(SRC_PATH)/to-utils/ft_itoa.c $(SRC_PATH)/to-utils/ft_tolower.c $(SRC_PATH)/to-utils/ft_toupper.c
 OBJS 		= $(subst $(SRC_PATH), $(OBJ_PATH), $(SRCS:.c=.o)) # changing .c to .o for object files
 
 YELLOW 		= "\033[0;33m"

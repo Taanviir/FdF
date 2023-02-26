@@ -6,7 +6,7 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 15:02:57 by tanas             #+#    #+#             */
-/*   Updated: 2023/02/24 20:46:42 by tanas            ###   ########.fr       */
+/*   Updated: 2023/02/26 16:02:18 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	draw_line(t_coord c1, t_coord c2, t_img image)
 	i = 0;
 	while (i <= data.dx)
 	{
-		my_pixel_put(image, c1.x, c1.y, 0xFFFFFF);
+		my_pixel_put(image, c1.x, c1.y, c1.colour);
 		while (data.decision > 0)
 		{
 			data.decision -= (2 * data.dx);

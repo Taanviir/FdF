@@ -6,7 +6,7 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 17:10:15 by tanas             #+#    #+#             */
-/*   Updated: 2023/02/24 17:39:23 by tanas            ###   ########.fr       */
+/*   Updated: 2023/02/26 21:14:44 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,14 @@
 
 # define WIDTH 1920
 # define HEIGHT 1080
+# define MENU_WIDTH 300
+# define MENU_HEIGHT 300
+# define WHITE 0xFFFFFF
 
 typedef enum s_view
 {
 	ISOMETRIC,
 	TOP
-	// PARALLEL, CONIC
 }		t_view;
 
 typedef struct s_win
@@ -96,13 +98,15 @@ t_win	make_window(int w, int h, char *title);
 void	my_pixel_put(t_img data, int x, int y, int color);
 void	draw_line(t_coord p1, t_coord p2, t_img image);
 t_img	make_image(int w, int h, t_win window);
-int		key_events(int key_input, t_img *image);
-int		close_window(t_win *fdf);
+int		key_events(int key, t_img *image);
+int		close_window(t_img *image);
 void	draw(t_img image);
 t_map	get_map(char *file);
-t_coord	new_point(int x, int y, t_map map);
-void	controls(t_win fdf);
-int		*extract_colours(char **values_in_line, t_map map);
+t_coord	new_coord(int x, int y, t_map map);
+int		*extract_colours(char **values, t_map map);
 t_coord	project(t_coord *c, t_img image);
+void	print_menu(t_win win);
+void	reset(t_img image);
+void	draw_menu_bg(t_img image);
 
 #endif

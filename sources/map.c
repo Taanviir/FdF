@@ -6,7 +6,7 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 18:32:30 by tanas             #+#    #+#             */
-/*   Updated: 2023/02/24 20:48:00 by tanas            ###   ########.fr       */
+/*   Updated: 2023/02/26 15:19:34 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,21 +39,21 @@ static t_map	get_height_width(char *file)
 }
 
 // get_values gets the z values for one line
-static int	*get_values(char **values_str, t_map map)
+static int	*get_values(char **values_str, t_map map, int y)
 {
 	int		*z_values;
-	int		i;
+	int		x;
 
-	// map.colours[index] = extract_colours(values_str, map);
+	map.colours[y] = extract_colours(values_str, map);
 	z_values = (int *) malloc(sizeof(int) * map.width);
 	if (!z_values)
 		return (NULL);
-	i = 0;
-	while (i < map.width)
+	x = 0;
+	while (x < map.width)
 	{
-		z_values[i] = ft_atoi(values_str[i]);
-		free(values_str[i]);
-		i++;
+		z_values[x] = ft_atoi(values_str[x]);
+		free(values_str[x]);
+		x++;
 	}
 	free(values_str);
 	return (z_values);
@@ -65,24 +65,24 @@ t_map	get_map(char *file)
 {
 	int		fd;
 	char	*line;
-	int		i;
+	int		y;
 	t_map	map;
 
 	map = get_height_width(file);
 	map.z_values = (int **) malloc(sizeof(int *) * map.height);
 	if (!map.z_values)
 		exit(2);
-	// map.colours = (int **) malloc(sizeof(int *) * map.height);
-	// if (!map.z_values)
-	// 	exit(3);
-	i = 0;
+	map.colours = (int **) malloc(sizeof(int *) * map.height);
+	if (!map.z_values)
+		exit(3);
+	y = 0;
 	fd = open(file, O_RDONLY);
-	while (i < map.height)
+	while (y < map.height)
 	{
 		line = get_next_line(fd);
-		map.z_values[i] = get_values(ft_split(line, ' '), map);
+		map.z_values[y] = get_values(ft_split(line, ' '), map, y);
 		free(line);
-		i++;
+		y++;
 	}
 	close(fd);
 	return (map);

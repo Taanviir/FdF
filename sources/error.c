@@ -6,55 +6,54 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 21:54:45 by tanas             #+#    #+#             */
-/*   Updated: 2023/02/05 17:56:46 by tanas            ###   ########.fr       */
+/*   Updated: 2023/02/26 21:16:32 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#define ERR_MSG "\033[1;3;31m\n Invalid file entered.\nUse \
+	\"./fdf [map].fdf\" to run this program."
 
-/* need to make a common error function that takes care of any error
-void	error(char *s)
+static void	check_file_type(char *file)
 {
-	if (errno == 0)
-		ft_putendl_fd(s, 2);
-	else
-		perror(s);
+	char	*file_type;
+	int		i;
+
+	file_type = ft_strchr(file, '.');
+	if (!file_type)
+	{
+		ft_putendl_fd(ERR_MSG, 2);
+		exit(0);
+	}
+	i = 0;
+	while (file_type[i])
+	{
+		if (file_type[i + 1] == 'f')
+			if (file_type[i + 2] == 'd')
+				if (file_type[i + 3] == 'f')
+					return ;
+		ft_putendl_fd(ERR_MSG, 2);
+		exit(0);
+		i++;
+	}
 }
-
-=========== ERRNO =============
-0	Default
-1	Operation not permitted
-2	No such file or directory
-3	No such process
-4	Interrupted system call
-5	I/O error
-6	No such device or address
-7	Argument list too long
-8	Exec format error
-9	Bad file number
-10	No child processes
-11	Try again
-12	Out of memory
-13	Permission denied
-
-*/
 
 int	check_file(char *file, int count)
 {
-	int		fd;
+	int	fd;
 
 	if (count != 2)
 	{
-		ft_putendl_fd(".fdf file is missing.", 2);
+		ft_putendl_fd("\033[1;3;31m\n .fdf file is missing.", 2);
 		ft_putendl_fd("Use \"./fdf [map].fdf\" to run this program.", 2);
 		exit (0);
 	}
+	check_file_type(file);
 	fd = open(file, O_RDONLY);
 	if (fd < 3)
 	{
 		close(fd);
-		ft_putendl_fd("Error. Invalid file entered.", 2);
-		ft_putendl_fd("Use \"./fdf [map].fdf\" to run this program.", 2);
+		ft_putendl_fd(ERR_MSG, 2);
 		exit (0);
 	}
 	close(fd);

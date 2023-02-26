@@ -6,32 +6,22 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 20:49:01 by tanas             #+#    #+#             */
-/*   Updated: 2023/02/24 20:46:31 by tanas            ###   ########.fr       */
+/*   Updated: 2023/02/26 18:37:33 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	rotate_x_coord(t_coord *c, double alpha, double beta, double gamma)
+static void	rotate_coord(t_coord *c, double alpha, double beta, double gamma)
 {
-	int	old_x;
-
-	old_x = c->x;
-	c->x = (old_x * cos(beta) * cos(gamma)) + \
+	c->x = (c->x * cos(beta) * cos(gamma)) + \
 		(c->y * sin(alpha) * sin(beta) * cos(gamma)) - \
 		(c->y * cos(alpha) * sin(gamma)) + \
 		(c->z * cos(alpha) * sin(beta) * cos(gamma)) + \
 		(c->z * sin(alpha) * sin(gamma));
-}
-
-static void	rotate_y_coord(t_coord *c, double alpha, double beta, double gamma)
-{
-	int	old_y;
-
-	old_y = c->y;
 	c->y = (c->x * cos(beta) * sin(gamma)) + \
-		(old_y * sin(alpha) * sin(beta) * sin(gamma)) + \
-		(old_y * cos(alpha) * cos(gamma)) + \
+		(c->y * sin(alpha) * sin(beta) * sin(gamma)) + \
+		(c->y * cos(alpha) * cos(gamma)) + \
 		(c->z * cos(alpha) * sin(beta) * sin(gamma)) - \
 		(c->z * sin(alpha) * cos(gamma));
 }
@@ -59,9 +49,7 @@ static void	zoom_and_center(t_coord *c, t_img image)
 t_coord	project(t_coord *c, t_img image)
 {
 	zoom_and_center(c, image);
-	rotate_x_coord(c, \
-		image.camera->alpha, image.camera->beta, image.camera->gamma);
-	rotate_y_coord(c, \
+	rotate_coord(c, \
 		image.camera->alpha, image.camera->beta, image.camera->gamma);
 	if (image.camera->view == ISOMETRIC)
 		isometric(&c->x, &c->y, c->z);
