@@ -6,7 +6,7 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 18:32:30 by tanas             #+#    #+#             */
-/*   Updated: 2023/02/26 15:19:34 by tanas            ###   ########.fr       */
+/*   Updated: 2023/02/27 18:25:00 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static t_map	get_height_width(char *file)
 	while (vals[map.width])
 		map.width++;
 	free(line);
+	free(vals);
 	map.height = 0;
 	while (line)
 	{

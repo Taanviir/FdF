@@ -6,20 +6,20 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 21:54:45 by tanas             #+#    #+#             */
-/*   Updated: 2023/02/26 21:16:32 by tanas            ###   ########.fr       */
+/*   Updated: 2023/02/27 18:41:51 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#define ERR_MSG "\033[1;3;31m\n Invalid file entered.\nUse \
-	\"./fdf [map].fdf\" to run this program."
+#define ERR_MSG "\033[1;3;31mInvalid file entered.\n\
+Use\"./fdf [map].fdf\" to run this program."
 
 static void	check_file_type(char *file)
 {
 	char	*file_type;
 	int		i;
 
-	file_type = ft_strchr(file, '.');
+	file_type = ft_strrchr(file, '.');
 	if (!file_type)
 	{
 		ft_putendl_fd(ERR_MSG, 2);

@@ -6,7 +6,7 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 17:10:15 by tanas             #+#    #+#             */
-/*   Updated: 2023/02/26 21:14:44 by tanas            ###   ########.fr       */
+/*   Updated: 2023/02/27 19:13:52 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@
 # include <fcntl.h>
 # include "libft.h"
 # include <math.h>
-# include <mlx.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <string.h>
 # include <unistd.h>
+
+# 
+# include <mlx.h>
 
 # define WIDTH 1920
 # define HEIGHT 1080
