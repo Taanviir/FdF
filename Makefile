@@ -25,7 +25,6 @@ ifeq ($(shell uname -s), Linux)
 endif
 
 C_FLAGS 		= -Wall -Wextra -Werror -O3 -g -fsanitize=address
-# LIBRARY_FLAGS 	= -lmlx -lm -lft -Llibft/ -Lmlx-macos/ -framework OpenGL -framework AppKit
 INCLUDES 		= -Iincludes/ -Ilibft/includes -Imlx-macos/
 
 SRCS_DIR 		= sources/
