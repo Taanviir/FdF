@@ -6,25 +6,14 @@
 #    By: tanas <tanas@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/07 22:21:39 by tanas             #+#    #+#              #
-#    Updated: 2023/02/27 19:05:06 by tanas            ###   ########.fr        #
+#    Updated: 2023/02/26 21:57:27 by tanas            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 			= fdf
 
-ifeq ($(shell uname -s), Darwin)
-	MLX_DIR 	= mlx-mac/
-	MINILIBX	= libmlx.a
-	LIBRARY_FLAGS = -I$(MLX_DIR) -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
-endif
-
-ifeq ($(shell uname -s), Linux)
-	MLX_DIR 	= mlx-linux/
-	MINILIBX	= libmlx_Linux.a
-	LIBRARY_FLAGS = -I$(MLX_DIR) -L$(MLX_DIR) -lmlx_Linux -lXext -lX11 -lm -lz
-endif
-
 C_FLAGS 		= -Wall -Wextra -Werror -O3 -g -fsanitize=address
+LIBRARY_FLAGS 	= -lmlx -lm -lft -Llibft/ -Lmlx-macos/ -framework OpenGL -framework AppKit
 INCLUDES 		= -Iincludes/ -Ilibft/includes -Imlx-macos/
 
 SRCS_DIR 		= sources/
@@ -48,6 +37,8 @@ HEADERS 		= includes/fdf.h \
 					includes/keycodes.h \
 
 LIBFT 			= libft/libft.a
+
+MINILIBX 		= mlx-macos/libmlx.a
 
 # colours
 GREEN 			= "\033[1;32m"
@@ -73,13 +64,12 @@ $(LIBFT) :
 
 $(MINILIBX) :
 	@echo $(YELLOW)"Creating $(MINILIBX)"$(COLOUR_RESET)
-
-	@make -sC $(MLX_DIR)
+	@make -sC mlx-macos
 	@echo $(GREEN)"MLX Library is ready. ✅\n"$(COLOUR_RESET)
 
 clean :
 	@make clean -sC libft
-	@make clean -sC $(MLX_DIR)
+	@make clean -sC mlx-macos
 	@rm -rf $(OBJS_DIR)
 	@echo $(RED)"\nRemoving object directory and files"$(COLOUR_RESET)
 
