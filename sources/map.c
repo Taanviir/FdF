@@ -6,7 +6,7 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 18:32:30 by tanas             #+#    #+#             */
-/*   Updated: 2023/02/28 17:24:11 by tanas            ###   ########.fr       */
+/*   Updated: 2023/02/28 17:28:17 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void	free_double_ptr(void **double_ptr)
 {
 	int	i;
 
-	i = 0;
 	if (!double_ptr)
 		return ;
+	i = 0;
 	while (double_ptr[i])
 	{
 		free(double_ptr[i]);
