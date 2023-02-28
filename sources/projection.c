@@ -6,7 +6,7 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 20:49:01 by tanas             #+#    #+#             */
-/*   Updated: 2023/02/28 19:35:56 by tanas            ###   ########.fr       */
+/*   Updated: 2023/02/28 19:39:44 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	rotate_coord(t_coord *c, double alpha, double beta, double gamma)
 {
 	int	x;
 
-	x = 0;
+	x = c->x;
 	c->x = (x * cos(beta) * cos(gamma)) + \
 		(c->y * sin(alpha) * sin(beta) * cos(gamma)) - \
 		(c->y * cos(alpha) * sin(gamma)) + \
