@@ -6,7 +6,7 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 22:14:32 by tanas             #+#    #+#             */
-/*   Updated: 2023/02/28 19:36:32 by tanas            ###   ########.fr       */
+/*   Updated: 2023/02/28 20:02:03 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	*extract_colours(char **values, t_map map)
 		{
 			colour = ft_split(values[i], 'x');
 			colours[i] = ft_atoi_base(upper(colour[1]), "0123456789ABCDEF");
-			free_double_ptr(colour);
+			free_double_ptr((void **) colour);
 		}
 		i++;
 	}

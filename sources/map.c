@@ -6,13 +6,13 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 18:32:30 by tanas             #+#    #+#             */
-/*   Updated: 2023/02/28 19:36:26 by tanas            ###   ########.fr       */
+/*   Updated: 2023/02/28 20:02:26 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	free_double_ptr(char **double_ptr)
+void	free_double_ptr(void **double_ptr)
 {
 	int	i;
 
@@ -42,7 +42,7 @@ static t_map	get_height_width(char *file)
 	while (vals[map.width])
 		map.width++;
 	free(line);
-	free_double_ptr(vals);
+	free_double_ptr((void **) vals);
 	map.height = 0;
 	while (line)
 	{
@@ -70,7 +70,7 @@ static int	*get_values(char **values_str, t_map map, int y)
 		z_values[x] = ft_atoi(values_str[x]);
 		x++;
 	}
-	free_double_ptr(values_str);
+	free_double_ptr((void **) values_str);
 	return (z_values);
 }
 
