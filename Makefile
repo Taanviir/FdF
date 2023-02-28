@@ -6,13 +6,13 @@
 #    By: tanas <tanas@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/07 22:21:39 by tanas             #+#    #+#              #
-#    Updated: 2023/02/26 21:57:27 by tanas            ###   ########.fr        #
+#    Updated: 2023/02/28 19:35:24 by tanas            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 			= fdf
 
-C_FLAGS 		= -Wall -Wextra -Werror -O3 -g -fsanitize=address
+C_FLAGS 		= -Wall -Wextra -Werror -O3
 LIBRARY_FLAGS 	= -lmlx -lm -lft -Llibft/ -Lmlx-macos/ -framework OpenGL -framework AppKit
 INCLUDES 		= -Iincludes/ -Ilibft/includes -Imlx-macos/
 

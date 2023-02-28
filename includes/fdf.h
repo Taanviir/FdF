@@ -6,7 +6,7 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 17:10:15 by tanas             #+#    #+#             */
-/*   Updated: 2023/02/28 17:21:01 by tanas            ###   ########.fr       */
+/*   Updated: 2023/02/28 19:36:10 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,10 @@ void	draw(t_img image);
 t_map	get_map(char *file);
 t_coord	new_coord(int x, int y, t_map map);
 int		*extract_colours(char **values, t_map map);
-t_coord	project(t_coord *c, t_img image);
+void	project(t_coord *c, t_img image);
 void	print_menu(t_win win);
 void	reset(t_img image);
 void	draw_menu_bg(t_img image);
-void	free_double_ptr(void **double_ptr);
+void	free_double_ptr(char **double_ptr);
 
 #endif
