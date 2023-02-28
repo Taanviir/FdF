@@ -6,7 +6,7 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 17:10:15 by tanas             #+#    #+#             */
-/*   Updated: 2023/02/26 21:14:44 by tanas            ###   ########.fr       */
+/*   Updated: 2023/02/28 17:21:01 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,6 @@ t_coord	project(t_coord *c, t_img image);
 void	print_menu(t_win win);
 void	reset(t_img image);
 void	draw_menu_bg(t_img image);
+void	free_double_ptr(void **double_ptr);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 20:18:57 by tanas             #+#    #+#             */
-/*   Updated: 2023/02/28 15:05:15 by tanas            ###   ########.fr       */
+/*   Updated: 2023/02/28 17:26:56 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,9 @@
 
 int	close_window(t_img *image)
 {
-	free(image->map.z_values);
-	free(image->map.colours);
+	free_double_ptr((void **) image->map.z_values);
+	free_double_ptr((void **) image->map.colours);
 	mlx_destroy_image(image->win.mlx, image->addr);
-	mlx_clear_window(image->win.mlx, image->win.window);
 	mlx_destroy_window(image->win.mlx, image->win.window);
 	exit(0);
 }

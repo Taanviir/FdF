@@ -6,11 +6,26 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 18:32:30 by tanas             #+#    #+#             */
-/*   Updated: 2023/02/28 14:37:12 by tanas            ###   ########.fr       */
+/*   Updated: 2023/02/28 17:24:11 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	free_double_ptr(void **double_ptr)
+{
+	int	i;
+
+	i = 0;
+	if (!double_ptr)
+		return ;
+	while (double_ptr[i])
+	{
+		free(double_ptr[i]);
+		i++;
+	}
+	free(double_ptr);
+}
 
 // function name is self-explanatory
 static t_map	get_height_width(char *file)
@@ -27,7 +42,7 @@ static t_map	get_height_width(char *file)
 	while (vals[map.width])
 		map.width++;
 	free(line);
-	free(vals);
+	free_double_ptr((void **) vals);
 	map.height = 0;
 	while (line)
 	{
@@ -53,10 +68,9 @@ static int	*get_values(char **values_str, t_map map, int y)
 	while (x < map.width)
 	{
 		z_values[x] = ft_atoi(values_str[x]);
-		free(values_str[x]);
 		x++;
 	}
-	free(values_str);
+	free_double_ptr((void **) values_str);
 	return (z_values);
 }
 
@@ -70,10 +84,10 @@ t_map	get_map(char *file)
 	t_map	map;
 
 	map = get_height_width(file);
-	map.z_values = (int **) malloc(sizeof(int *) * map.height);
+	map.z_values = (int **) malloc(sizeof(int *) * (map.height + 1));
 	if (!map.z_values)
 		exit(2);
-	map.colours = (int **) malloc(sizeof(int *) * map.height);
+	map.colours = (int **) malloc(sizeof(int *) * (map.height + 1));
 	if (!map.z_values)
 		exit(3);
 	y = 0;
@@ -85,6 +99,8 @@ t_map	get_map(char *file)
 		free(line);
 		y++;
 	}
+	map.colours[y] = NULL;
+	map.z_values[y] = NULL;
 	close(fd);
 	return (map);
 }
