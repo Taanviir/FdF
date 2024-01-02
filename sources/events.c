@@ -15,8 +15,8 @@
 
 int	close_window(t_img *image)
 {
-	free_double_ptr((void **) image->map.z_values);
-	free_double_ptr((void **) image->map.colours);
+	ft_free_double((void **) image->map.z_values);
+	ft_free_double((void **) image->map.colours);
 	mlx_destroy_image(image->win.mlx, image->addr);
 	mlx_destroy_window(image->win.mlx, image->win.window);
 	exit(0);

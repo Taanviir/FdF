@@ -35,7 +35,7 @@ else ifeq ($(UNAME), Darwin)
 endif
 
 SRCS_DIR = sources
-SRCS = main.c key_hooks.c line.c image.c map.c draw.c error.c colours.c \
+SRCS = main.c events.c line.c image.c map.c draw.c error.c colours.c \
 	projection.c menu.c
 
 OBJS_DIR = objects
@@ -75,6 +75,10 @@ valgrind : re
 debug : C_FLAGS += -g3 -DDEBUG
 debug : re
 	@echo $(YELLOW)"\n$(NAME) is now in debug mode"$(RESET)
+
+sanitize : C_FLAGS += -g3 -fsanitize=address
+sanitize : re
+	@echo $(YELLOW)"\n$(NAME) is now in sanitize mode"$(RESET)
 
 clean :
 	@make clean -sC libft
