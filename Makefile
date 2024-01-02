@@ -10,73 +10,85 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME 			= fdf
-
-C_FLAGS 		= -Wall -Wextra -Werror -O3
-LIBRARY_FLAGS 	= -lmlx -lm -lft -Llibft/ -Lmlx-macos/ -framework OpenGL -framework AppKit
-INCLUDES 		= -Iincludes/ -Ilibft/includes -Imlx-macos/
-
-SRCS_DIR 		= sources/
-SRCS_LIST 		= main.c \
-					key_hooks.c \
-					line.c \
-					image.c \
-					map.c \
-					draw.c \
-					error.c \
-					colours.c \
-					projection.c \
-					menu.c
-SRCS 			= $(addprefix $(SRCS_DIR), $(SRCS_LIST))
-
-OBJS_DIR 		= objects/
-OBJS_LIST 		= $(SRCS_LIST:.c=.o)
-OBJS 			= $(addprefix $(OBJS_DIR), $(OBJS_LIST))
-
-HEADERS 		= includes/fdf.h \
-					includes/keycodes.h \
-
-LIBFT 			= libft/libft.a
-
-MINILIBX 		= mlx-macos/libmlx.a
-
 # colours
-GREEN 			= "\033[1;32m"
-RED 			= "\033[1;3;31m"
-BLUE 			= "\033[3;34m"
-YELLOW 			= "\033[0;33m"
-COLOUR_RESET 	= "\033[0m"
+GREEN = "\e[1;32m"
+RED = "\e[1;3;31m"
+BLUE = "\e[3;34m"
+YELLOW = "\e[0;33m"
+RESET = "\e[0m"
+
+NAME = fdf
+
+C_FLAGS = -Wall -Wextra -Werror
+UNAME = $(shell uname)
+LIBRARY_FLAGS = -Llibft/ -lft -lm -lz -lmlx -Llibft/
+INCLUDES = -Iincludes/ -Ilibft/includes
+
+ifeq ($(UNAME), Linux)
+	LIBRARY_FLAGS += -Lmlx_linux/ -lmlx_Linux -L/usr/lib -lXext -lX11
+	INCLUDES += -Imlx_linux/ -I/usr/include -D__LINUX__
+	MLX_DIR = mlx_linux/
+else ifeq ($(UNAME), Darwin)
+	LIBRARY_FLAGS += -Lmlx_macos/ -framework OpenGL -framework AppKit
+	INCLUDES += -Imlx_macos/
+	MLX_DIR = mlx_macos/
+endif
+
+SRCS_DIR = sources
+SRCS = main.c key_hooks.c line.c image.c map.c draw.c error.c colours.c \
+	projection.c menu.c
+
+OBJS_DIR = objects
+OBJS = $(SRCS:%.c=$(OBJS_DIR)/%.o)
+
+LIBFT = libft/libft.a
+MINILIBX = $(MLX_DIR)libmlx.a
 
 all : $(NAME)
 
 $(NAME) : $(LIBFT) $(MINILIBX) $(OBJS)
-	@cc $(C_FLAGS) $(LIBRARY_FLAGS) $(INCLUDES) $(OBJS) -o $(NAME)
+	@cc $(C_FLAGS) $(INCLUDES) $(OBJS) -o $(NAME) $(LIBRARY_FLAGS)
 
-$(OBJS_DIR)%.o : $(SRCS_DIR)%.c $(HEADERS)
+$(OBJS_DIR)/%.o : $(SRCS_DIR)/%.c
 	@mkdir -p $(OBJS_DIR)
 	@cc $(C_FLAGS) -c $(INCLUDES) $< -o $@
-	@echo $(BLUE)"Compiling $<."$(COLOUR_RESET)
+	@echo $(BLUE)"Compiling $<."$(RESET)
 
 $(LIBFT) :
-	@echo $(YELLOW)"Creating $(LIBFT)"$(COLOUR_RESET)
+	@echo $(YELLOW)"Creating $(LIBFT)"$(RESET)
 	@make -sC libft
-	@echo $(GREEN)"\nLibft is ready. ✅\n"$(COLOUR_RESET)
+	@echo $(GREEN)"\nLibft is ready. ✅\n"$(RESET)
 
 $(MINILIBX) :
-	@echo $(YELLOW)"Creating $(MINILIBX)"$(COLOUR_RESET)
-	@make -sC mlx-macos
-	@echo $(GREEN)"MLX Library is ready. ✅\n"$(COLOUR_RESET)
+	@echo $(YELLOW)"Creating $(MINILIBX)"$(RESET)
+	@make -sC $(MLX_DIR)
+	@if [ $(UNAME) = Darwin ]; then \
+		cp $(MLX_DIR)libmlx.dylib ./ ; \
+	fi
+	@echo $(GREEN)"MLX Library is ready. ✅\n"$(RESET)
+
+valgrind : C_FLAGS += -g3 -DDEBUG
+valgrind : re
+	@echo $(YELLOW)"\nRunning valgrind"$(RESET)
+	@valgrind --leak-check=full --show-leak-kinds=definite --track-origins=yes ./$(NAME) maps/42.fdf
+
+debug : C_FLAGS += -g3 -DDEBUG
+debug : re
+	@echo $(YELLOW)"\n$(NAME) is now in debug mode"$(RESET)
 
 clean :
 	@make clean -sC libft
-	@make clean -sC mlx-macos
+	@make clean -sC $(MLX_DIR)
 	@rm -rf $(OBJS_DIR)
-	@echo $(RED)"\nRemoving object directory and files"$(COLOUR_RESET)
+	@echo $(RED)"\nRemoving object directory and files"$(RESET)
 
 fclean : clean
 	@rm -f $(NAME)
+	@if [ $(UNAME) = Darwin ]; then \
+		rm -f libmlx.dylib; \
+	fi
 	@make fclean -sC libft
-	@echo $(RED)"Removing $(NAME), libft.a and libmlx.a\n"$(COLOUR_RESET)
+	@echo $(RED)"Removing $(NAME), libft.a and libmlx.a\n"$(RESET)
 
 re : fclean all
 
