@@ -17,8 +17,12 @@ int	close_window(t_img *image)
 {
 	ft_free_double((void **) image->map.z_values);
 	ft_free_double((void **) image->map.colours);
-	mlx_destroy_image(image->win.mlx, image->addr);
 	mlx_destroy_window(image->win.mlx, image->win.window);
+	mlx_destroy_image(image->win.mlx, image->img);
+	#ifdef __LINUX__
+		mlx_destroy_display(image->win.mlx); // only works in linux!
+	#endif
+	free(image->win.mlx);
 	exit(0);
 }
 

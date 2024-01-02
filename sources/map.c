@@ -86,6 +86,7 @@ t_map	get_map(char *file)
 	}
 	map.colours[y] = NULL;
 	map.z_values[y] = NULL;
-	close(fd);
+	free(get_next_line(fd));
+    close(fd);
 	return (map);
 }

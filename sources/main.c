@@ -48,6 +48,9 @@ int	main(int argc, char **argv)
 
 	if (check_file(argv[1], argc))
 	{
+		ft_bzero(&fdf, sizeof(t_win));
+		ft_bzero(&image, sizeof(t_img));
+		ft_bzero(&camera, sizeof(t_camera));
 		fdf = make_window(WIDTH, HEIGHT, argv[1]);
 		if (!fdf.mlx || !fdf.window)
 			return (1);

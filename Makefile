@@ -70,7 +70,7 @@ $(MINILIBX) :
 valgrind : C_FLAGS += -g3 -DDEBUG
 valgrind : re
 	@echo $(YELLOW)"\nRunning valgrind"$(RESET)
-	@valgrind --leak-check=full --show-leak-kinds=definite --track-origins=yes ./$(NAME) maps/42.fdf
+	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME) test_maps/42.fdf
 
 debug : C_FLAGS += -g3 -DDEBUG
 debug : re
