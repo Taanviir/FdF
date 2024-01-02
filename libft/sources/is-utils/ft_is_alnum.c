@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_string.c                                  :+:      :+:    :+:   */
+/*   ft_is_alnum.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/10 18:50:25 by tanas             #+#    #+#             */
-/*   Updated: 2022/12/17 14:01:30 by tanas            ###   ########.fr       */
+/*   Created: 2022/11/06 11:46:59 by tanas             #+#    #+#             */
+/*   Updated: 2023/07/29 12:38:15 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_print_string(char *str)
+/**
+ * @brief Checks if the given character is alphanumeric.
+ *
+ * @param c The character to be checked.
+ * @return true (1) if the character is alphanumeric, false (0) otherwise.
+ */
+bool	ft_is_alnum(int c)
 {
-	if (!str)
-		return (write(1, "(null)", 6));
-	ft_putstr_fd(str, 1);
-	return (ft_strlen(str));
+	return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') \
+		|| (c >= '0' && c <= '9'));
 }

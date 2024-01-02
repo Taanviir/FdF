@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sabdelra <sabdelra@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 12:35:15 by tanas             #+#    #+#             */
-/*   Updated: 2023/02/26 15:50:14 by tanas            ###   ########.fr       */
+/*   Updated: 2023/10/25 03:03:40 by sabdelra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include <stdarg.h>
+# include <stdbool.h>
+# include <stdint.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include "ft_printf.h"
-# include "get_next_line.h"
 
 typedef struct s_list
 {
@@ -24,12 +25,20 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1000
+# endif
+
+// ---------------------- ERROR-UTILS ------------------------------------
+void	ft_error(char *message, int err);
+
 // ---------------------- IS-UTILS ---------------------------------------
-int		ft_isalnum(int c);
-int		ft_isalpha(int c);
-int		ft_isascii(int c);
-int		ft_isdigit(int c);
-int		ft_isprint(int c);
+bool	ft_is_alnum(int c);
+bool	ft_is_alpha(int c);
+bool	ft_is_ascii(int c);
+bool	ft_is_digit(int c);
+bool	ft_is_print(int c);
+bool	ft_is_whitespace(char c);
 
 // ---------------------- LINKED LIST ------------------------------------
 t_list	*ft_lstnew(void *content);
@@ -50,6 +59,7 @@ void	*ft_memcpy(void *dst, const void *src, size_t n);
 void	*ft_memmove(void *dest, const void *src, size_t n);
 void	*ft_memset(void *b, int c, size_t len);
 void	*ft_calloc(size_t count, size_t size);
+void	ft_free_double(void **double_ptr);
 
 // ------------------------ PUT-UTILS ------------------------------------
 void	ft_putchar_fd(char c, int fd);
@@ -63,6 +73,8 @@ char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(const char *s1);
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 char	*ft_strjoin(char *stash, char *buffer);
+char	*ft_strjoin_m(char *stash, char *buffer);
+char	*ft_bigjoin(int count, ...);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 size_t	ft_strlen(const char *s);
@@ -74,10 +86,22 @@ char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 
 // ---------------------- TO-UTILS ---------------------------------------
-int		ft_atoi_base(const char *str, char *base);
+int 	ft_atoi_base(const char *str, char *base);
 int		ft_atoi(const char *str);
 char	*ft_itoa(int n);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
+
+// ---------------------- GET-NEXT-LINE ----------------------------------
+char	*get_next_line(int fd);
+
+// ---------------------- FT-PRINTF --------------------------------------
+int		ft_printf(const char *str, ...);
+int		ft_print_char(const char c);
+int		ft_print_string(char *str);
+int		ft_print_number(int n);
+int		ft_print_unsigned(unsigned int n);
+int		ft_print_hex(unsigned int n, char *base);
+int		ft_print_pointer(size_t pointer, char *base);
 
 #endif

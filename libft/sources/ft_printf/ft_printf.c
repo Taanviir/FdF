@@ -6,12 +6,21 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 16:32:12 by tanas             #+#    #+#             */
-/*   Updated: 2022/12/13 14:20:58 by tanas            ###   ########.fr       */
+/*   Updated: 2023/07/29 13:57:17 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
+/**
+ * @brief Formats and prints the specified format argument using the
+ * corresponding print function.
+ *
+ * @param format The format character representing the type of argument to
+ * be printed.
+ * @param args The va_list containing the variadic arguments.
+ * @return The number of characters printed.
+ */
 static int	ft_format(const char format, va_list args)
 {
 	int	len;
@@ -39,6 +48,14 @@ static int	ft_format(const char format, va_list args)
 	return (len);
 }
 
+/**
+ * @brief A custom implementation of the printf function that supports basic
+ * format specifiers.
+ *
+ * @param str The format string containing the format specifiers.
+ * @param ... The variadic arguments corresponding to the format specifiers.
+ * @return The number of characters printed.
+ */
 int	ft_printf(const char *str, ...)
 {
 	int		i;

@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_is_alpha.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/10 18:23:06 by tanas             #+#    #+#             */
-/*   Updated: 2023/01/08 14:52:30 by tanas            ###   ########.fr       */
+/*   Created: 2022/11/06 11:41:08 by tanas             #+#    #+#             */
+/*   Updated: 2023/07/29 12:41:26 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include <stdarg.h>
-# include "libft.h"
-
-// printf functions
-int		ft_printf(const char *str, ...);
-int		ft_print_char(const char c);
-int		ft_print_string(char *str);
-int		ft_print_number(int n);
-int		ft_print_unsigned(unsigned int n);
-int		ft_print_hex(unsigned int n, char *base);
-int		ft_print_pointer(size_t pointer, char *base);
-
-#endif
+/**
+ * @brief Checks if the given character is an alphabet (uppercase or lowercase).
+ *
+ * @param c The character to be checked.
+ * @return true if 'c' is an alphabet letter, false otherwise.
+ */
+bool	ft_is_alpha(int c)
+{
+	return ((c >= 'a' && c <= 'z') || ((c >= 'A' && c <= 'Z')));
+}

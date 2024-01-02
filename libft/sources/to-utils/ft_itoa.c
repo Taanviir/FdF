@@ -6,7 +6,7 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 14:50:04 by tanas             #+#    #+#             */
-/*   Updated: 2022/12/03 17:01:59 by tanas            ###   ########.fr       */
+/*   Updated: 2023/07/29 13:07:17 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@ static int	int_length(long n)
 	return (length);
 }
 
+/**
+ * @brief Converts an integer 'n' to a string representation.
+ *
+ * @param n The integer to convert.
+ * @return A pointer to the new string, or NULL if memory allocation fails.
+ */
 char	*ft_itoa(int n)
 {
 	char	*str;

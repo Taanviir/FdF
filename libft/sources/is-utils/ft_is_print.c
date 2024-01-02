@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_pointer.c                                 :+:      :+:    :+:   */
+/*   ft_is_print.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/11 16:04:08 by tanas             #+#    #+#             */
-/*   Updated: 2022/12/13 13:20:32 by tanas            ###   ########.fr       */
+/*   Created: 2022/11/06 11:53:46 by tanas             #+#    #+#             */
+/*   Updated: 2023/07/29 12:43:09 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_print_pointer(size_t pointer, char *base)
+/**
+ * @brief Checks if the given character is a printable ASCII character.
+ *
+ * @param c The character to be checked.
+ * @return true if 'c' is a printable character, false otherwise.
+ */
+bool	ft_is_print(int c)
 {
-	int	length_of_print;
-
-	length_of_print = 0;
-	if (pointer > 15)
-		length_of_print += ft_print_pointer(pointer / 16, base);
-	length_of_print += write(1, &base[pointer % 16], 1);
-	return (length_of_print);
+	return (c >= 32 && c <= 126);
 }

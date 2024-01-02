@@ -6,12 +6,20 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 14:49:30 by tanas             #+#    #+#             */
-/*   Updated: 2022/12/03 15:47:03 by tanas            ###   ########.fr       */
+/*   Updated: 2023/07/29 13:24:42 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * @brief Applies the function 'f' to each character of the string 's'
+ * to create a new string resulting from successive applications of 'f'.
+ *
+ * @param s The input string to iterate through.
+ * @param f The function to apply to each character.
+ * @return A pointer to the new string, or NULL if memory allocation fails.
+ */
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
 	char	*arr;

@@ -6,12 +6,21 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 14:47:23 by tanas             #+#    #+#             */
-/*   Updated: 2022/12/03 18:43:02 by tanas            ###   ########.fr       */
+/*   Updated: 2023/07/29 13:21:25 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * @brief Extracts a substring from the string 's', starting at index 'start'
+ * and extending to at most 'len' characters.
+ *
+ * @param s The input string to extract from.
+ * @param start The start index of the substring.
+ * @param len The maximum number of characters in the substring.
+ * @return A pointer to the new substring, or NULL if memory allocation fails.
+ */
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*str;

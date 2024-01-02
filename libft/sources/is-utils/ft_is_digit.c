@@ -1,20 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isascii.c                                       :+:      :+:    :+:   */
+/*   ft_is_digit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/06 11:49:05 by tanas             #+#    #+#             */
-/*   Updated: 2022/11/14 14:11:09 by tanas            ###   ########.fr       */
+/*   Created: 2022/11/06 09:28:15 by tanas             #+#    #+#             */
+/*   Updated: 2023/07/29 12:42:36 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isascii(int c)
+/**
+ * @brief Checks if the given character is a digit (0-9).
+ *
+ * @param c The character to be checked.
+ * @return true if 'c' is a digit, false otherwise.
+ */
+bool	ft_is_digit(int c)
 {
-	if (c >= 0 && c <= 127)
-		return (1);
-	return (0);
+	return (c >= '0' && c <= '9');
 }

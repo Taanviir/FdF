@@ -6,14 +6,9 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 14:49:42 by tanas             #+#    #+#             */
-/*   Updated: 2022/11/28 14:09:04 by tanas            ###   ########.fr       */
+/*   Updated: 2023/07/29 13:22:32 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/*
-Removes characters in set from the beginning and end
-Only stops removing set characters once a non-set character is encountered
-*/
 
 #include "libft.h"
 
@@ -31,6 +26,14 @@ static int	check_char(char const c, char const *str)
 	return (0);
 }
 
+/**
+ * @brief Removes leading and trailing characters from the string 's'
+ * that are present in the string 'set'.
+ *
+ * @param s1 The input string to be trimmed.
+ * @param set The set of characters to trim.
+ * @return A pointer to the new trimmed string, or NULL if malloc fails.
+ */
 char	*ft_strtrim(char const *s1, char const *set)
 {
 	char	*arr;

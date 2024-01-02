@@ -6,12 +6,22 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 11:56:18 by tanas             #+#    #+#             */
-/*   Updated: 2022/11/22 13:06:57 by tanas            ###   ########.fr       */
+/*   Updated: 2023/07/29 13:23:09 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * @brief Locates the first occurrence of the null-terminated string 'needle'
+ * in the null-terminated string 'haystack'.
+ *
+ * @param haystack The string to search in.
+ * @param needle The string to search for.
+ * @param len The maximum number of bytes to search.
+ * @return A pointer to the beginning of the substring, or NULL if 
+ * 'needle' is not found.
+ */
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
 	size_t	i;

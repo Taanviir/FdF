@@ -6,16 +6,9 @@
 /*   By: tanas <tanas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 14:47:46 by tanas             #+#    #+#             */
-/*   Updated: 2022/12/01 15:11:14 by tanas            ###   ########.fr       */
+/*   Updated: 2023/07/29 13:23:35 by tanas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/*
-Uses c (delimiter) to split a string s into multiple strings and returns a
-double char pointer.
-e.g:
-"  hello this is an L", " " -> {"hello\0", "this\0", "is\0", "an\0", "L\0", '\0'}
-*/
 
 #include "libft.h"
 
@@ -61,6 +54,14 @@ static char	*get_word(char const *str, char c, size_t start)
 	return (word);
 }
 
+/**
+ * @brief Splits a string 's' using the character 'c' as a delimiter
+ * and returns an array of strings.
+ *
+ * @param s The input string to be split.
+ * @param c The delimiter character.
+ * @return An array of strings, or NULL if memory allocation fails.
+ */
 char	**ft_split(char const *s, char c)
 {
 	char	**words;
