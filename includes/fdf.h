@@ -108,6 +108,5 @@ void	project(t_coord *c, t_img image);
 void	print_menu(t_win win);
 void	reset(t_img image);
 void	draw_menu_bg(t_img image);
-void	free_double_ptr(void **double_ptr);
 
 #endif

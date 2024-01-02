@@ -12,21 +12,6 @@
 
 #include "fdf.h"
 
-void	free_double_ptr(void **double_ptr)
-{
-	int	i;
-
-	if (!double_ptr)
-		return ;
-	i = 0;
-	while (double_ptr[i])
-	{
-		free(double_ptr[i]);
-		i++;
-	}
-	free(double_ptr);
-}
-
 // function name is self-explanatory
 static t_map	get_height_width(char *file)
 {
@@ -42,7 +27,7 @@ static t_map	get_height_width(char *file)
 	while (vals[map.width])
 		map.width++;
 	free(line);
-	free_double_ptr((void **) vals);
+	ft_free_double((void **) vals);
 	map.height = 0;
 	while (line)
 	{
@@ -70,7 +55,7 @@ static int	*get_values(char **values_str, t_map map, int y)
 		z_values[x] = ft_atoi(values_str[x]);
 		x++;
 	}
-	free_double_ptr((void **) values_str);
+	ft_free_double((void **) values_str);
 	return (z_values);
 }
 

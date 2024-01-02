@@ -19,7 +19,7 @@ static char	*upper(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (ft_isalpha(str[i]))
+		if (ft_is_alpha(str[i]))
 			str[i] = ft_toupper(str[i]);
 		i++;
 	}
@@ -44,7 +44,7 @@ int	*extract_colours(char **values, t_map map)
 		{
 			colour = ft_split(values[i], 'x');
 			colours[i] = ft_atoi_base(upper(colour[1]), "0123456789ABCDEF");
-			free_double_ptr((void **) colour);
+			ft_free_double((void **) colour);
 		}
 		i++;
 	}
